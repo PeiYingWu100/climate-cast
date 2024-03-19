@@ -1,4 +1,4 @@
-import { WeatherData } from "../App";
+import { WeatherData } from "../hooks/useWeather";
 
 interface Props {
   weatherData: WeatherData;
