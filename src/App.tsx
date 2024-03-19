@@ -1,9 +1,22 @@
+import { useState } from "react";
 import "./App.css";
 import WeatherCard from "./components/WeatherCard";
 import useWeather from "./hooks/useWeather";
 
+export interface WeatherQuery {
+  location: string | null;
+  lat: number | null;
+  lon: number | null;
+}
+
 function App() {
-  const { weatherData, error, isLoading } = useWeather();
+  const [watherQuery, setWeatherQuery] = useState<WeatherQuery>({
+    location: "Sydney",
+    lat: null,
+    lon: null,
+  } as WeatherQuery);
+
+  const { data: weatherData, error, isLoading } = useWeather(watherQuery);
 
   return (
     <div className="container mt-5">
