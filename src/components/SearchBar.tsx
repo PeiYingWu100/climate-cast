@@ -21,7 +21,7 @@ const SearchBar = ({ setWeatherCardQuery }: Props) => {
   );
 
   useEffect(() => {
-    if (!locationQuery) return;
+    if (!locationQuery.location) return;
 
     apiClient
       .get<WeatherData>(

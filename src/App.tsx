@@ -20,8 +20,6 @@ function App() {
   const { data, error, isLoading } = useCurrentLocation();
 
   useEffect(() => {
-    if (!weatherCardQuery) return;
-
     setWeatherCardQuery({ data, error, isLoading });
   }, [data]);
 
