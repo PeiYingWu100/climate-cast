@@ -23,6 +23,12 @@ const SearchBar = ({ setWeatherCardQuery }: Props) => {
   useEffect(() => {
     if (!locationQuery.location) return;
 
+    setWeatherCardQuery({
+      data: null,
+      error: "",
+      isLoading: true,
+    });
+
     apiClient
       .get<WeatherData>(
         `/data/2.5/weather?q=${locationQuery.location}&units=metric`
