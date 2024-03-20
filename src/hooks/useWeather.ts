@@ -1,4 +1,5 @@
-import { LocationQuery } from "../App";
+
+import { LocationQuery } from "../components/SearchBar";
 import useData from "./useData";
 
 export interface WeatherData {
