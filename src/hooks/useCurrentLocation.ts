@@ -10,7 +10,7 @@ const useCurrentLocation = () => {
         {} as WeatherCardQuery
     );
 
-    function fetchWeather(locationQuery: LocationQuery ){
+    function fetchWeather(locationQuery: LocationQuery, errMessage = "" ){
         apiClient
             .get<WeatherData>(
                 locationQuery.location ? 
@@ -20,7 +20,7 @@ const useCurrentLocation = () => {
             .then((res) => {
                 setWeatherCardQuery({
                     data: res.data,
-                    error: res.data ? "" : "empty data",
+                    error: res.data && errMessage === "" ? "" : errMessage,
                     isLoading: false,
                 });
             })
@@ -44,17 +44,11 @@ const useCurrentLocation = () => {
             navigator.geolocation.getCurrentPosition(success,failed);
         }
         else {
-            setWeatherCardQuery({
-                data: null,
-                error: "Unfortunately, your browser doesn't support geolocation. As a fallback, we've set the default location to Sydney.",
-                isLoading: false,
-            });
-
             fetchWeather({
                 location: "Sydney",
                 lat: null,
                 lon: null,
-            })
+            }, "Unfortunately, your browser doesn't support geolocation. As a fallback, we've set the default location to Sydney.")
         }
 
         function success(position: GeolocationPosition){
@@ -68,17 +62,11 @@ const useCurrentLocation = () => {
         }
 
         function failed(locationErr:GeolocationPositionError){
-            setWeatherCardQuery({
-                data: null,
-                error: `Apologies, we encountered an error while retrieving your location: ${locationErr.message}. As a fallback, we've set the default location to Sydney.`,
-                isLoading: false,
-            });
-           
             fetchWeather({
                 location: "Sydney",
                 lat: null,
                 lon: null,
-            })
+            }, `Apologies, we encountered an error while retrieving your location: ${locationErr.message}. As a fallback, we've set the default location to Sydney.`)
         }
     }, []);
 
