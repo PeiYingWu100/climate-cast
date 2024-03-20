@@ -1,8 +1,5 @@
-import { useEffect, useState } from "react";
-import { AxiosError, CanceledError } from "axios";
-import apiClient from "../services/apiClient";
+import { LocationQuery } from "../App";
 import useData from "./useData";
-import { WeatherQuery } from "../App";
 
 export interface WeatherData {
   name: string;
@@ -19,12 +16,12 @@ export interface WeatherData {
   };
 }
 
-const useWeather = (weatherQuery: WeatherQuery) => useData<WeatherData>("/data/2.5/weather",
+const useWeather = (locationQuery: LocationQuery) => useData<WeatherData>("/data/2.5/weather",
 {
   params: {
-    q: weatherQuery.location,
-    lat: weatherQuery.lat,
-    lon: weatherQuery.lon,
+    q: locationQuery.location,
+    lat: locationQuery.lat,
+    lon: locationQuery.lon,
   },
 })
 
