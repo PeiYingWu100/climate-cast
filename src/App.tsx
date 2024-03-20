@@ -3,13 +3,7 @@ import SearchBar from "./components/SearchBar";
 import WeatherCard from "./components/WeatherCard";
 import useCurrentLocation from "./hooks/useCurrentLocation";
 import { useEffect, useState } from "react";
-import useWeather, { WeatherData } from "./hooks/useWeather";
-
-export interface LocationQuery {
-  location: string | null;
-  lat: number | null;
-  lon: number | null;
-}
+import { WeatherData } from "./hooks/useWeather";
 
 export interface WeatherCardQuery {
   data: WeatherData | null;
@@ -18,12 +12,6 @@ export interface WeatherCardQuery {
 }
 
 function App() {
-  const [locationQuery, setLocationQuery] = useState<LocationQuery>({
-    location: "Sydney",
-    lat: null,
-    lon: null,
-  });
-
   const [weatherCardQuery, setWeatherCardQuery] = useState<WeatherCardQuery>(
     {} as WeatherCardQuery
   );
@@ -32,28 +20,14 @@ function App() {
   const { data, error, isLoading } = useCurrentLocation();
 
   useEffect(() => {
+    if (!weatherCardQuery) return;
+
     setWeatherCardQuery({ data, error, isLoading });
   }, [data]);
 
-  // Search Location
-  const { loadScript } = useWeather(locationQuery);
-  const {
-    data: weatherData,
-    error: weatherError,
-    isLoading: isWeatherLoading,
-  } = loadScript();
-
-  useEffect(() => {
-    setWeatherCardQuery({
-      data: weatherData,
-      error: weatherError,
-      isLoading: isWeatherLoading,
-    });
-  }, [locationQuery]);
-
   return (
     <div className="container mt-5">
-      <SearchBar onSearch={setLocationQuery} />
+      <SearchBar setWeatherCardQuery={setWeatherCardQuery} />
       {weatherCardQuery.error && (
         <p className="fw-bold text-danger">Sorry! {weatherCardQuery.error}</p>
       )}
