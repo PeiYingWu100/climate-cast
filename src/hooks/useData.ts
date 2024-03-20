@@ -4,37 +4,33 @@ import apiClient from "../services/apiClient";
 
 
 const useData = <T>(endpoint: string, requestConfig?: AxiosRequestConfig) =>{
-    const loadScript = () => {
-        const [data, setData] = useState<T | null>(null);
-        const [error, setError] = useState("");
-        const [isLoading, setIsLoading] = useState(false);
-    
-        useEffect(() => {
-            const controller = new AbortController();
+    const [data, setData] = useState<T | null>(null);
+    const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
-            setIsLoading(true);
-            apiClient
-                .get<T>(endpoint, { signal: controller.signal, ...requestConfig })
-                .then((res) => {
-                    setData(res.data);
-                    if(data) setError("");
-                    setIsLoading(false)
-                })
-                .catch((err: Error | AxiosError) => {
-                    if(err instanceof CanceledError) return;
+    useEffect(() => {
+        const controller = new AbortController();
 
-                    setError(err.message);
-                    setIsLoading(false)
-                })
-                // .finally(() => setIsLoading(false));
+        setIsLoading(true);
+        apiClient
+            .get<T>(endpoint, { signal: controller.signal, ...requestConfig })
+            .then((res) => {
+                setData(res.data);
+                if(data) setError("");
+                setIsLoading(false)
+            })
+            .catch((err: Error | AxiosError) => {
+                if(err instanceof CanceledError) return;
 
-                return () => controller.abort();
-        }, []);
+                setError(err.message);
+                setIsLoading(false)
+            })
+            // .finally(() => setIsLoading(false));
 
-        return {data, error, isLoading}
-    }
+            return () => controller.abort();
+    }, []);
 
-    return { loadScript }
+    return {data, error, isLoading}
 }
 
 export default useData;
