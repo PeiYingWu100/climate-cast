@@ -2,7 +2,7 @@ import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { WeatherData } from "./useWeather";
 import apiClient from "../services/apiClient";
-import { LocationQuery } from "../App";
+import { LocationQuery } from "../components/SearchBar";
 
 const useCurrentLocation = () => {
     const [data, setData] = useState<WeatherData | null>(null);
