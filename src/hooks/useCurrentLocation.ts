@@ -2,45 +2,63 @@ import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
 import { WeatherData } from "./useWeather";
 import apiClient from "../services/apiClient";
+import { LocationQuery } from "../App";
 
 const useCurrentLocation = () => {
     const [data, setData] = useState<WeatherData | null>(null);
     const [error, setError] = useState("");
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        setIsLoading(true);
-        
+    function fetchWeather(locationQuery: LocationQuery ){
+        apiClient
+            .get<WeatherData>(
+                `/data/2.5/weather?q=${locationQuery.location}&lat=${locationQuery.lat}&lon=${locationQuery.lon}&units=metric`
+            )
+            .then((res) => {
+                setData(res.data);
+                if(data) setError("");
+
+                setIsLoading(false)
+            })
+            .catch((err: Error | AxiosError) => {
+                setError(err.message);
+
+                setIsLoading(false)
+            });
+    }
+
+    useEffect(() => {        
         function success(position: GeolocationPosition){
             const { latitude, longitude } = position.coords;
 
-            apiClient
-                .get<WeatherData>(
-                    `/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric`
-                )
-                .then((res) => {
-                    setData(res.data);
-                    if(data) setError("");
-                    setIsLoading(false)
-                })
-                .catch((err: Error | AxiosError) => {
-                    setError(err.message);
-                });
+            fetchWeather({
+                location: null,
+                lat: latitude,
+                lon: longitude,
+            })
         }
 
         function failed(locationErr:GeolocationPositionError){
-            setError(`Error getting user location: ${locationErr}`);
-            setIsLoading(false)
-            console.log("geo error");
+            setError(`Apologies, we encountered an error while retrieving your location: ${locationErr.message}. As a fallback, we've set the default location to Sydney.`);
+
+            fetchWeather({
+                location: "Sydney",
+                lat: null,
+                lon: null,
+            })
         }
 
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(success,failed);
-            console.log("check geo");
         }
         else {
-            setError('Geolocation is not supported by this browser.');
-            console.log("browser not support");
+            setError("Unfortunately, your browser doesn't support geolocation. As a fallback, we've set the default location to Sydney.");
+
+            fetchWeather({
+                location: "Sydney",
+                lat: null,
+                lon: null,
+            })
         }
     }, []);
 
