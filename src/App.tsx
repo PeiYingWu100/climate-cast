@@ -31,7 +31,7 @@ function App() {
       )}
       {weatherCardQuery.isLoading && (
         <div className="text-center">
-          <p>Loading your current location...</p>
+          <p>Loading... </p>
           <div className="spinner-border"></div>
         </div>
       )}
