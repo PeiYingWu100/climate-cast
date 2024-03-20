@@ -18,24 +18,42 @@ export interface WeatherCardQuery {
 }
 
 function App() {
-  const [weatherCardQuery, setWeatherCardQuery] = useState<WeatherCardQuery>(
-    {} as WeatherCardQuery
-  );
-
   const [locationQuery, setLocationQuery] = useState<LocationQuery>({
-    location: "Sydeny",
+    location: "Sydney",
     lat: null,
     lon: null,
   });
 
+  const [weatherCardQuery, setWeatherCardQuery] = useState<WeatherCardQuery>(
+    {} as WeatherCardQuery
+  );
+
+  // Default location
   const { data, error, isLoading } = useCurrentLocation();
 
   useEffect(() => {
     setWeatherCardQuery({ data, error, isLoading });
   }, [data]);
 
+  // Search Location
+  const { loadScript } = useWeather(locationQuery);
+  const {
+    data: weatherData,
+    error: weatherError,
+    isLoading: isWeatherLoading,
+  } = loadScript();
+
+  useEffect(() => {
+    setWeatherCardQuery({
+      data: weatherData,
+      error: weatherError,
+      isLoading: isWeatherLoading,
+    });
+  }, [locationQuery]);
+
   return (
     <div className="container mt-5">
+      <SearchBar onSearch={setLocationQuery} />
       {weatherCardQuery.error && (
         <p className="fw-bold text-danger">Sorry! {weatherCardQuery.error}</p>
       )}
