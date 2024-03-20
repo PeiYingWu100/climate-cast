@@ -12,7 +12,9 @@ const useCurrentLocation = () => {
     function fetchWeather(locationQuery: LocationQuery ){
         apiClient
             .get<WeatherData>(
-                `/data/2.5/weather?q=${locationQuery.location}&lat=${locationQuery.lat}&lon=${locationQuery.lon}&units=metric`
+                locationQuery.location ? 
+                `/data/2.5/weather?q=${locationQuery.location}&units=metric`:
+                `/data/2.5/weather?lat=${locationQuery.lat}&lon=${locationQuery.lon}&units=metric`
             )
             .then((res) => {
                 setData(res.data);
