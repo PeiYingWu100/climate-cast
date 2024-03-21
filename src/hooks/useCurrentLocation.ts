@@ -1,74 +1,58 @@
-import { AxiosError } from "axios";
-import { useEffect, useState } from "react";
-import { WeatherData } from "./useWeather";
-import apiClient from "../services/apiClient";
-import { LocationQuery } from "../components/SearchBar";
+import { useState } from "react";
+import useWeather from "./useWeather";
 import { WeatherCardQuery } from "../App";
+
+export interface LocationQuery {
+    location: string | null;
+    lat: number | null;
+    lon: number | null;
+  }
 
 const useCurrentLocation = () => {
     const [weatherCardQuery, setWeatherCardQuery] = useState<WeatherCardQuery>(
         {} as WeatherCardQuery
     );
 
-    function fetchWeather(locationQuery: LocationQuery, errMessage = "" ){
-        apiClient
-            .get<WeatherData>(
-                locationQuery.location ? 
-                `/data/2.5/weather?q=${locationQuery.location}&units=metric`:
-                `/data/2.5/weather?lat=${locationQuery.lat}&lon=${locationQuery.lon}&units=metric`
-            )
-            .then((res) => {
-                setWeatherCardQuery({
-                    data: res.data,
-                    error: res.data && errMessage === "" ? "" : errMessage,
-                    isLoading: false,
-                });
-            })
-            .catch((err: Error | AxiosError) => {
-                setWeatherCardQuery({
-                    data: null,
-                    error: err.message,
-                    isLoading: false,
-                });
-            });
+    const [locationQuery, setLocationQuery] = useState<LocationQuery>(
+        {} as LocationQuery
+    );
+
+    const [errorMsg, setErrorMsg] = useState("");
+     
+    // Get Local Location
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success,failed);
+    }
+    else {
+        setLocationQuery({
+            location: "Sydney",
+            lat: null,
+            lon: null,
+        });
+        setErrorMsg("Unfortunately, your browser doesn't support geolocation. As a fallback, we've set the default location to Sydney.");
     }
 
-    useEffect(() => {        
-        setWeatherCardQuery({
-            data: null,
-            error: "",
-            isLoading: true,
-          });
+    function success(position: GeolocationPosition){
+        const { latitude, longitude } = position.coords;
 
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(success,failed);
-        }
-        else {
-            fetchWeather({
-                location: "Sydney",
-                lat: null,
-                lon: null,
-            }, "Unfortunately, your browser doesn't support geolocation. As a fallback, we've set the default location to Sydney.")
-        }
+        setLocationQuery({
+            location: null,
+            lat: latitude,
+            lon: longitude,
+        });
+        setErrorMsg("");
+    }
 
-        function success(position: GeolocationPosition){
-            const { latitude, longitude } = position.coords;
+    function failed(locationErr:GeolocationPositionError){
+        setLocationQuery({
+            location: "Sydney",
+            lat: null,
+            lon: null,
+        });
+        setErrorMsg(`Apologies, we encountered an error while retrieving your location: ${locationErr.message}. As a fallback, we've set the default location to Sydney.`)
+    }
 
-            fetchWeather({
-                location: null,
-                lat: latitude,
-                lon: longitude,
-            })
-        }
-
-        function failed(locationErr:GeolocationPositionError){
-            fetchWeather({
-                location: "Sydney",
-                lat: null,
-                lon: null,
-            }, `Apologies, we encountered an error while retrieving your location: ${locationErr.message}. As a fallback, we've set the default location to Sydney.`)
-        }
-    }, []);
+    useWeather(locationQuery, setWeatherCardQuery, errorMsg, [locationQuery.location, errorMsg]);
 
     return {...weatherCardQuery}
 }

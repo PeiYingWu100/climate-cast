@@ -1,15 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { WeatherData } from "../hooks/useWeather";
+import useWeather from "../hooks/useWeather";
 import { WeatherCardQuery } from "../App";
-import apiClient from "../services/apiClient";
-import { AxiosError } from "axios";
-
-export interface LocationQuery {
-  location: string | null;
-  lat: number | null;
-  lon: number | null;
-}
+import { LocationQuery } from "../hooks/useCurrentLocation";
 
 interface Props {
   setWeatherCardQuery: (weatherSearchQuery: WeatherCardQuery) => void;
@@ -20,35 +13,7 @@ const SearchBar = ({ setWeatherCardQuery }: Props) => {
     {} as LocationQuery
   );
 
-  useEffect(() => {
-    if (!locationQuery.location) return;
-
-    setWeatherCardQuery({
-      data: null,
-      error: "",
-      isLoading: true,
-    });
-
-    apiClient
-      .get<WeatherData>(
-        `/data/2.5/weather?q=${locationQuery.location}&units=metric`
-      )
-      .then((res) => {
-        setWeatherCardQuery({
-          data: res.data,
-          error: res.data ? "" : "empty data",
-          isLoading: false,
-        });
-        // if (data) setError("");
-      })
-      .catch((err: Error | AxiosError) => {
-        setWeatherCardQuery({
-          data: null,
-          error: err.message,
-          isLoading: false,
-        });
-      });
-  }, [locationQuery.location]);
+  useWeather(locationQuery, setWeatherCardQuery, "", [locationQuery.location]);
 
   const ref = useRef<HTMLInputElement>(null);
   return (
