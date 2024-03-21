@@ -27,7 +27,7 @@ function App() {
     <div className="container mt-5">
       <SearchBar setWeatherCardQuery={setWeatherCardQuery} />
       {weatherCardQuery.error && (
-        <p className="fw-bold text-danger">Sorry! {weatherCardQuery.error}</p>
+        <p className="fw-bold text-danger">{weatherCardQuery.error}</p>
       )}
       {weatherCardQuery.isLoading && (
         <div className="text-center">
