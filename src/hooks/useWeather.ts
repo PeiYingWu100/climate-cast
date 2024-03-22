@@ -9,7 +9,14 @@ export interface WeatherData {
   name: string;
   sys: {
     country: string;
+    sunrise: number;
+    sunset: number;
   };
+  weather:{
+    main: string;
+    description: string;
+    icon: string;
+  }[]
   dt: number;
   main: {
     temp: number;
@@ -62,8 +69,6 @@ const useWeather = (locationQuery: LocationQuery, setFetchDataQuery: (fetchDataQ
 
           return () => controller.abort();
   }, deps ? [...deps] : []);
-
-  // return {FetchDataQuery}
 }
 
 export default useWeather;

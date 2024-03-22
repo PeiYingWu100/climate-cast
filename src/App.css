@@ -1,0 +1,15 @@
+body{
+    background: rgb(175,222,223);
+    background: linear-gradient(0deg, rgba(175,222,223,1) 0%, rgba(252,250,252,1) 50%, rgba(247,171,171,1) 100%);
+    background-repeat: no-repeat;
+    background-size:cover;
+}
+
+.container{
+    height: 100svh;
+}
+
+.container > .row{
+    height: 100%;
+    
+}
