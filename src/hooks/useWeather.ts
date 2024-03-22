@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { WeatherCardQuery } from "../App";
+import { FetchDataQuery } from "../App";
 import apiClient, { CanceledError } from "../services/apiClient";
 import { AxiosError } from "axios";
 import { LocationQuery } from "./useCurrentLocation";
@@ -20,12 +20,12 @@ export interface WeatherData {
   };
 }
 
-const useWeather = (locationQuery: LocationQuery, setWeatherCardQuery: (weatherSearchQuery: WeatherCardQuery) => void, errMessage = "", deps?: any[]) => {
+const useWeather = (locationQuery: LocationQuery, setFetchDataQuery: (fetchDataQuery: FetchDataQuery) => void, errMessage = "", deps?: any[]) => {
 
   useEffect(() => {
       const controller = new AbortController();
 
-      setWeatherCardQuery({
+      setFetchDataQuery({
           data: null,
           error: "",
           isLoading: true,
@@ -43,7 +43,7 @@ const useWeather = (locationQuery: LocationQuery, setWeatherCardQuery: (weatherS
             signal: controller.signal
           })
           .then((res) => {
-              setWeatherCardQuery({
+              setFetchDataQuery({
                   data: res.data,
                   error: res.data && errMessage === "" ? "" : errMessage,
                   isLoading: false,
@@ -52,7 +52,7 @@ const useWeather = (locationQuery: LocationQuery, setWeatherCardQuery: (weatherS
           .catch((err: Error | AxiosError) => {
               if(err instanceof CanceledError) return;
 
-              setWeatherCardQuery({
+              setFetchDataQuery({
                   data: null,
                   error: err.message,
                   isLoading: false,
@@ -63,7 +63,7 @@ const useWeather = (locationQuery: LocationQuery, setWeatherCardQuery: (weatherS
           return () => controller.abort();
   }, deps ? [...deps] : []);
 
-  // return {weatherCardQuery}
+  // return {FetchDataQuery}
 }
 
 export default useWeather;

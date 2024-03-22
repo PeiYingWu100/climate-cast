@@ -1,6 +1,6 @@
 import { useState } from "react";
 import useWeather from "./useWeather";
-import { WeatherCardQuery } from "../App";
+import { FetchDataQuery } from "../App";
 
 export interface LocationQuery {
     location: string | null;
@@ -9,8 +9,8 @@ export interface LocationQuery {
   }
 
 const useCurrentLocation = () => {
-    const [weatherCardQuery, setWeatherCardQuery] = useState<WeatherCardQuery>(
-        {} as WeatherCardQuery
+    const [FetchDataQuery, setFetchDataQuery] = useState<FetchDataQuery>(
+        {} as FetchDataQuery
     );
 
     const [locationQuery, setLocationQuery] = useState<LocationQuery>(
@@ -52,9 +52,9 @@ const useCurrentLocation = () => {
         setErrorMsg(`Apologies, we encountered an error while retrieving your location: ${locationErr.message}. As a fallback, we've set the default location to Sydney.`)
     }
 
-    useWeather(locationQuery, setWeatherCardQuery, errorMsg, [locationQuery.location, errorMsg]);
+    useWeather(locationQuery, setFetchDataQuery, errorMsg, [locationQuery.location, errorMsg]);
 
-    return {...weatherCardQuery}
+    return {...FetchDataQuery}
 }
 
 export default useCurrentLocation;

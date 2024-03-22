@@ -1,19 +1,19 @@
 import { useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import useWeather from "../hooks/useWeather";
-import { WeatherCardQuery } from "../App";
+import { FetchDataQuery } from "../App";
 import { LocationQuery } from "../hooks/useCurrentLocation";
 
 interface Props {
-  setWeatherCardQuery: (weatherSearchQuery: WeatherCardQuery) => void;
+  setFetchDataQuery: (fetchDataQuery: FetchDataQuery) => void;
 }
 
-const SearchBar = ({ setWeatherCardQuery }: Props) => {
+const SearchBar = ({ setFetchDataQuery }: Props) => {
   const [locationQuery, setLocationQuery] = useState<LocationQuery>(
     {} as LocationQuery
   );
 
-  useWeather(locationQuery, setWeatherCardQuery, "", [locationQuery.location]);
+  useWeather(locationQuery, setFetchDataQuery, "", [locationQuery.location]);
 
   const ref = useRef<HTMLInputElement>(null);
   return (

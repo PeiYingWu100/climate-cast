@@ -5,38 +5,38 @@ import useCurrentLocation from "./hooks/useCurrentLocation";
 import { useEffect, useState } from "react";
 import { WeatherData } from "./hooks/useWeather";
 
-export interface WeatherCardQuery {
+export interface FetchDataQuery {
   data: WeatherData | null;
   error: string;
   isLoading: boolean;
 }
 
 function App() {
-  const [weatherCardQuery, setWeatherCardQuery] = useState<WeatherCardQuery>(
-    {} as WeatherCardQuery
+  const [FetchDataQuery, setFetchDataQuery] = useState<FetchDataQuery>(
+    {} as FetchDataQuery
   );
 
   // Default location
   const { data, error, isLoading } = useCurrentLocation();
 
   useEffect(() => {
-    setWeatherCardQuery({ data, error, isLoading });
+    setFetchDataQuery({ data, error, isLoading });
   }, [data]);
 
   return (
     <div className="container mt-5">
-      <SearchBar setWeatherCardQuery={setWeatherCardQuery} />
-      {weatherCardQuery.error && (
-        <p className="fw-bold text-danger">{weatherCardQuery.error}</p>
+      <SearchBar setFetchDataQuery={setFetchDataQuery} />
+      {FetchDataQuery.error && (
+        <p className="fw-bold text-danger">{FetchDataQuery.error}</p>
       )}
-      {weatherCardQuery.isLoading && (
+      {FetchDataQuery.isLoading && (
         <div className="text-center">
           <p>Loading... </p>
           <div className="spinner-border"></div>
         </div>
       )}
-      {weatherCardQuery.data && (
-        <WeatherCard weatherData={weatherCardQuery.data} />
+      {FetchDataQuery.data && (
+        <WeatherCard weatherData={FetchDataQuery.data} />
       )}
     </div>
   );
