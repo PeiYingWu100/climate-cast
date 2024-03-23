@@ -1,8 +1,8 @@
-body{
-    background: rgb(175,222,223);
-    background: linear-gradient(0deg, rgba(175,222,223,1) 0%, rgba(252,250,252,1) 50%, rgba(247,171,171,1) 100%);
+#root{
+    background: url("/bg_sky.jpeg");
     background-repeat: no-repeat;
     background-size:cover;
+    background-position: center;
 }
 
 .container{
