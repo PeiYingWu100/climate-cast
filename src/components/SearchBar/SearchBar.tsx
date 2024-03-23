@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import useWeather from "../hooks/useWeather";
-import { FetchDataQuery } from "../App";
-import { LocationQuery } from "../hooks/useCurrentLocation";
+import useWeather from "../../hooks/useWeather";
+import { FetchDataQuery } from "../../App";
+import { LocationQuery } from "../../hooks/useCurrentLocation";
+import styles from "./SearchBar.module.css";
 
 interface Props {
   setFetchDataQuery: (fetchDataQuery: FetchDataQuery) => void;
@@ -32,11 +33,11 @@ const SearchBar = ({ setFetchDataQuery }: Props) => {
         <input
           ref={ref}
           type="text"
-          id="searchBar"
+          id={styles.searchBar}
           className="form-control"
           placeholder="Enter city"
         />
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-warning">
           <BsSearch />
         </button>
       </div>
