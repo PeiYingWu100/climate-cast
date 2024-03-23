@@ -60,6 +60,10 @@ const useWeather = (locationQuery: LocationQuery, setFetchDataQuery: (fetchDataQ
           .catch((err: Error | AxiosError) => {
               if(err instanceof CanceledError) return;
 
+              if(err instanceof AxiosError && err.response?.data.message === "city not found"){
+                err.message = "Oops! We couldn't find any information for that city. Please try it again!";
+              }
+
               setFetchDataQuery({
                   data: null,
                   error: err.message,
