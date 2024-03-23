@@ -36,13 +36,18 @@ function App() {
   return (
     <div className="container">
       <div className="row align-items-center justify-content-center ">
-        <div className="col-lg-4 m-auto" style={{ minHeight: "500px" }}>
+        <div
+          className="col-md-7 col-xl-5 m-auto"
+          style={{ minHeight: "500px" }}
+        >
           <SearchBar setFetchDataQuery={setFetchDataQuery} />
           {FetchDataQuery.error && (
-            <p className="fw-bold text-danger">{FetchDataQuery.error}</p>
+            <div className="bg-white rounded p-3 mb-3">
+              <p className="fw-bold text-danger mb-0">{FetchDataQuery.error}</p>
+            </div>
           )}
           {FetchDataQuery.isLoading && (
-            <div className="text-center text-light">
+            <div className="text-center text-light fs-2 fw-bold">
               <p>Loading... </p>
               <div className="spinner-border"></div>
             </div>
