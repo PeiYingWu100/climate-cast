@@ -14,14 +14,14 @@ const TodayWeatherCard = ({ weatherData, timeOfDay }: Props) => {
     {
       offset: true,
       icon: <MdWaterDrop />,
-      details: weatherData.main.humidity + "%",
+      details: weatherData.main.humidity + " %",
       title: "Humidity",
       floatDirection: "float-end",
     },
     {
       offset: false,
       icon: <FaWind />,
-      details: weatherData.wind.speed + "m/s",
+      details: weatherData.wind.speed + " m/s",
       title: "Wind Speed",
       floatDirection: "float-start",
     },
