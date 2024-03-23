@@ -2,7 +2,7 @@ import { WeatherData } from "../../hooks/useWeather";
 import styles from "./WeatherCard.module.css";
 import { FaLocationDot, FaWind } from "react-icons/fa6";
 import { MdWaterDrop } from "react-icons/md";
-import WeatherCardDetail, { weatherCardDetails } from "./WetherCardDetail";
+import WeatherCardDetail, { weatherCardDetails } from "./WeatherCardDetail";
 
 interface Props {
   weatherData: WeatherData;
