@@ -35,7 +35,7 @@ const SearchBar = ({ setFetchDataQuery }: Props) => {
           type="text"
           id={styles.searchBar}
           className="form-control"
-          placeholder="Enter city"
+          placeholder="Enter a Location"
         />
         <button type="submit" className="btn btn-warning">
           <BsSearch />
