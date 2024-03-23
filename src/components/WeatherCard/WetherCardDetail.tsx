@@ -18,12 +18,12 @@ const WeatherCardDetail = ({ weatherCardDetails }: Props) => {
       <div className="row">
         <div
           className={`${
-            weatherCardDetails.offset ? "offset-3" : ""
-          } col-2 pe-0 ${weatherCardDetails.iconSize}`}
+            weatherCardDetails.offset ? "offset-md-3" : ""
+          } col-md-2 pe-md-0 ${weatherCardDetails.iconSize}`}
         >
           {weatherCardDetails.icon}
         </div>
-        <div className="col-6 px-0">
+        <div className="col-md-6 px-0">
           <p className="card-text fs-6">
             <span className="fs-5">{weatherCardDetails.details}</span>
             <br />
