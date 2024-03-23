@@ -7,9 +7,10 @@ import styles from "./SearchBar.module.css";
 
 interface Props {
   setFetchDataQuery: (fetchDataQuery: FetchDataQuery) => void;
+  isLoading: boolean;
 }
 
-const SearchBar = ({ setFetchDataQuery }: Props) => {
+const SearchBar = ({ setFetchDataQuery, isLoading }: Props) => {
   const [locationQuery, setLocationQuery] = useState<LocationQuery>(
     {} as LocationQuery
   );
@@ -37,8 +38,9 @@ const SearchBar = ({ setFetchDataQuery }: Props) => {
           className="form-control"
           placeholder="Enter a Location"
           required
+          disabled={isLoading}
         />
-        <button type="submit" className="btn btn-warning">
+        <button type="submit" className="btn btn-warning" disabled={isLoading}>
           <BsSearch />
         </button>
       </div>

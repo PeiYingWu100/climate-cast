@@ -40,7 +40,10 @@ function App() {
           className="col-md-7 col-xl-5 m-auto"
           style={{ minHeight: "500px" }}
         >
-          <SearchBar setFetchDataQuery={setFetchDataQuery} />
+          <SearchBar
+            setFetchDataQuery={setFetchDataQuery}
+            isLoading={FetchDataQuery.isLoading}
+          />
           {FetchDataQuery.error && (
             <div className="bg-white rounded p-3 mb-3">
               <p className="fw-bold text-danger mb-0">{FetchDataQuery.error}</p>
