@@ -4,16 +4,24 @@ import WeatherCard from "./components/WeatherCard";
 import useCurrentLocation from "./hooks/useCurrentLocation";
 import { useEffect, useState } from "react";
 import { WeatherData } from "./hooks/useWeather";
+import { LocationData } from "./hooks/useSearchLocation";
 
 export interface FetchDataQuery {
-  data: WeatherData | null;
   error: string;
   isLoading: boolean;
 }
 
+export interface FetchWeatherQuery extends FetchDataQuery {
+  data: WeatherData | null;
+}
+
+export interface FetchLocationQuery extends FetchDataQuery {
+  data: LocationData | null;
+}
+
 function App() {
-  const [FetchDataQuery, setFetchDataQuery] = useState<FetchDataQuery>(
-    {} as FetchDataQuery
+  const [FetchWeatherQuery, setFetchWeatherQuery] = useState<FetchWeatherQuery>(
+    {} as FetchWeatherQuery
   );
   const [timeOfDay, setTimeOfDay] = useState<string | null>(null);
 
@@ -21,17 +29,17 @@ function App() {
   const { data, error, isLoading } = useCurrentLocation();
 
   useEffect(() => {
-    setFetchDataQuery({ data, error, isLoading });
+    setFetchWeatherQuery({ data, error, isLoading });
   }, [data]);
 
   // Day / Night time
   useEffect(() => {
-    if (!FetchDataQuery.data) return;
+    if (!FetchWeatherQuery.data) return;
 
-    FetchDataQuery.data.weather[0].icon.includes("n")
+    FetchWeatherQuery.data.weather[0].icon.includes("n")
       ? setTimeOfDay("Night")
       : setTimeOfDay("Day");
-  }, [FetchDataQuery]);
+  }, [FetchWeatherQuery]);
 
   return (
     <div className="container">
@@ -41,23 +49,25 @@ function App() {
           style={{ minHeight: "500px" }}
         >
           <SearchBar
-            setFetchDataQuery={setFetchDataQuery}
-            isLoading={FetchDataQuery.isLoading}
+            setFetchWeatherQuery={setFetchWeatherQuery}
+            isLoading={FetchWeatherQuery.isLoading}
           />
-          {FetchDataQuery.error && (
+          {FetchWeatherQuery.error && (
             <div className="bg-white rounded p-3 mb-3">
-              <p className="fw-bold text-danger mb-0">{FetchDataQuery.error}</p>
+              <p className="fw-bold text-danger mb-0">
+                {FetchWeatherQuery.error}
+              </p>
             </div>
           )}
-          {FetchDataQuery.isLoading && (
+          {FetchWeatherQuery.isLoading && (
             <div className="text-center text-light fs-2 fw-bold">
               <p>Loading... </p>
               <div className="spinner-border"></div>
             </div>
           )}
-          {FetchDataQuery.data && (
+          {FetchWeatherQuery.data && (
             <WeatherCard
-              weatherData={FetchDataQuery.data}
+              weatherData={FetchWeatherQuery.data}
               timeOfDay={timeOfDay}
             />
           )}

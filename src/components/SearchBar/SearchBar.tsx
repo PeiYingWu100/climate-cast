@@ -1,21 +1,21 @@
 import { useRef, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import useWeather from "../../hooks/useWeather";
-import { FetchDataQuery } from "../../App";
+import { FetchWeatherQuery } from "../../App";
 import { LocationQuery } from "../../hooks/useCurrentLocation";
 import styles from "./SearchBar.module.css";
 
 interface Props {
-  setFetchDataQuery: (fetchDataQuery: FetchDataQuery) => void;
+  setFetchWeatherQuery: (FetchWeatherQuery: FetchWeatherQuery) => void;
   isLoading: boolean;
 }
 
-const SearchBar = ({ setFetchDataQuery, isLoading }: Props) => {
+const SearchBar = ({ setFetchWeatherQuery, isLoading }: Props) => {
   const [locationQuery, setLocationQuery] = useState<LocationQuery>(
     {} as LocationQuery
   );
 
-  useWeather(locationQuery, setFetchDataQuery, "", [locationQuery.location]);
+  useWeather(locationQuery, setFetchWeatherQuery, "", [locationQuery.location]);
 
   const ref = useRef<HTMLInputElement>(null);
   return (

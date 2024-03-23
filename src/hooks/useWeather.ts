@@ -1,6 +1,6 @@
 
 import { useEffect } from "react";
-import { FetchDataQuery } from "../App";
+import { FetchWeatherQuery } from "../App";
 import apiClient, { CanceledError } from "../services/apiClient";
 import { AxiosError } from "axios";
 import { LocationQuery } from "./useCurrentLocation";
@@ -27,12 +27,12 @@ export interface WeatherData {
   };
 }
 
-const useWeather = (locationQuery: LocationQuery, setFetchDataQuery: (fetchDataQuery: FetchDataQuery) => void, errMessage = "", deps?: any[]) => {
+const useWeather = (locationQuery: LocationQuery, setFetchWeatherQuery: (FetchWeatherQuery: FetchWeatherQuery) => void, errMessage = "", deps?: any[]) => {
 
   useEffect(() => {
       const controller = new AbortController();
 
-      setFetchDataQuery({
+      setFetchWeatherQuery({
           data: null,
           error: "",
           isLoading: true,
@@ -51,7 +51,7 @@ const useWeather = (locationQuery: LocationQuery, setFetchDataQuery: (fetchDataQ
             signal: controller.signal
           })
           .then((res) => {
-              setFetchDataQuery({
+              setFetchWeatherQuery({
                   data: res.data,
                   error: res.data && errMessage === "" ? "" : errMessage,
                   isLoading: false,
@@ -64,7 +64,7 @@ const useWeather = (locationQuery: LocationQuery, setFetchDataQuery: (fetchDataQ
                 err.message = "Oops! We couldn't find any information for that city. Please try it again!";
               }
 
-              setFetchDataQuery({
+              setFetchWeatherQuery({
                   data: null,
                   error: err.message,
                   isLoading: false,
