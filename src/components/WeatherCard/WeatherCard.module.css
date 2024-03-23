@@ -1,7 +1,9 @@
 .bgNight{
-    background-color:#312e81;
+    background: rgb(42,89,109);
+    background: linear-gradient(0deg, rgba(42,89,109,1) 0%, rgba(87,122,129,1) 100%);
 }
 
 .bgDay{
-    background-color:#fafafa;
+    background: rgb(254,240,138);
+    background: radial-gradient(circle, rgb(251, 250, 243) 0%, rgb(184, 229, 244) 100%);
 }
