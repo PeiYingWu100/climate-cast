@@ -40,8 +40,8 @@ const TodayWeatherCard = ({ weatherData, timeOfDay }: Props) => {
     >
       <div className={`card-body`}>
         <h5 className="card-title">
-          <FaLocationDot className="mb-1" /> {weatherData.name}
-          {/* {weatherData.sys.country} */}
+          <FaLocationDot className="mb-1 text-danger" /> {weatherData.name},{" "}
+          {weatherData.sys.country}
         </h5>
         <p className="card-text">
           {new Date(weatherData.dt * 1000).toLocaleDateString("en-GB", {
