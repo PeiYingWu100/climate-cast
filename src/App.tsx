@@ -22,24 +22,27 @@ function App() {
 
   useEffect(() => {
     setFetchDataQuery({ data, error, isLoading });
+  }, [data]);
 
-    if (!data) return;
+  // Day / Night time
+  useEffect(() => {
+    if (!FetchDataQuery.data) return;
 
-    data.dt <= data.sys.sunrise || data.dt >= data.sys.sunset
+    FetchDataQuery.data.weather[0].icon.includes("n")
       ? setTimeOfDay("Night")
       : setTimeOfDay("Day");
-  }, [data]);
+  }, [FetchDataQuery]);
 
   return (
     <div className="container">
       <div className="row align-items-center justify-content-center ">
-        <div className="col-lg-4 m-auto">
+        <div className="col-lg-4 m-auto" style={{ minHeight: "500px" }}>
           <SearchBar setFetchDataQuery={setFetchDataQuery} />
           {FetchDataQuery.error && (
             <p className="fw-bold text-danger">{FetchDataQuery.error}</p>
           )}
           {FetchDataQuery.isLoading && (
-            <div className="text-center">
+            <div className="text-center text-light">
               <p>Loading... </p>
               <div className="spinner-border"></div>
             </div>
