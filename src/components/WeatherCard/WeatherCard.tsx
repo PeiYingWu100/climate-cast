@@ -1,7 +1,7 @@
 import { WeatherData } from "../../hooks/useWeather";
 import styles from "./WeatherCard.module.css";
 import { FaLocationDot, FaWind } from "react-icons/fa6";
-import { IoIosWater } from "react-icons/io";
+import { MdWaterDrop } from "react-icons/md";
 import WeatherCardDetail, { weatherCardDetails } from "./WetherCardDetail";
 
 interface Props {
@@ -13,17 +13,17 @@ const TodayWeatherCard = ({ weatherData, timeOfDay }: Props) => {
   const weatherCardDetails: weatherCardDetails[] = [
     {
       offset: true,
-      icon: <IoIosWater />,
-      iconSize: "fs-2",
+      icon: <MdWaterDrop />,
       details: weatherData.main.humidity + "%",
       title: "Humidity",
+      floatDirection: "float-end",
     },
     {
       offset: false,
       icon: <FaWind />,
-      iconSize: "fs-3",
       details: weatherData.wind.speed + "m/s",
       title: "Wind Speed",
+      floatDirection: "float-start",
     },
   ];
 
@@ -59,10 +59,7 @@ const TodayWeatherCard = ({ weatherData, timeOfDay }: Props) => {
         <p className="card-text">{weatherDesResult}</p>
         <div className="row">
           {weatherCardDetails.map((weatherDetail, ind) => (
-            <WeatherCardDetail
-              key={ind}
-              weatherCardDetails={weatherDetail}
-            />
+            <WeatherCardDetail key={ind} weatherCardDetails={weatherDetail} />
           ))}
         </div>
       </div>
