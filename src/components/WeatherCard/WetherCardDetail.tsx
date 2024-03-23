@@ -6,6 +6,7 @@ export interface weatherCardDetails {
   iconSize: string;
   details: string;
   title: string;
+  floatDirection: string;
 }
 
 interface Props {
@@ -15,15 +16,11 @@ interface Props {
 const WeatherCardDetail = ({ weatherCardDetails }: Props) => {
   return (
     <div className="col-6">
-      <div className="row">
-        <div
-          className={`${
-            weatherCardDetails.offset ? "offset-md-3" : ""
-          } col-md-2 pe-md-0 ${weatherCardDetails.iconSize}`}
-        >
+      <div className={weatherCardDetails.floatDirection}>
+        <div className={`float-md-start ${weatherCardDetails.iconSize}`}>
           {weatherCardDetails.icon}
         </div>
-        <div className="col-md-6 px-0">
+        <div className="px-sm-3 float-md-start">
           <p className="card-text fs-6">
             <span className="fs-5">{weatherCardDetails.details}</span>
             <br />
