@@ -46,6 +46,7 @@ const useWeather = (locationQuery: LocationQuery, setFetchDataQuery: (fetchDataQ
               q: locationQuery.location,
               lat: locationQuery.lat,
               lon: locationQuery.lon,
+              units: "metric",
             },
             signal: controller.signal
           })
