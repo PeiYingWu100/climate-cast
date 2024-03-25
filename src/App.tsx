@@ -37,38 +37,40 @@ function App() {
   }, [FetchWeatherQuery]);
 
   return (
-    <div className="container">
-      <div className="row align-items-center justify-content-center ">
-        <div
-          className="col-md-7 col-xl-5 m-auto"
-          style={{ minHeight: "500px" }}
-        >
-          <SearchBar
-            setFetchWeatherQuery={setFetchWeatherQuery}
-            isLoading={FetchWeatherQuery.isLoading}
-          />
-          {FetchWeatherQuery.error && (
-            <div className="bg-white rounded p-3 mb-3">
-              <p className="fw-bold text-danger mb-0">
-                {FetchWeatherQuery.error}
-              </p>
-            </div>
-          )}
-          {FetchWeatherQuery.isLoading && (
-            <div className="text-center text-light fs-2 fw-bold">
-              <p>Loading... </p>
-              <div className="spinner-border"></div>
-            </div>
-          )}
-          {FetchWeatherQuery.data && (
-            <WeatherCard
-              weatherData={FetchWeatherQuery.data}
-              timeOfDay={timeOfDay}
+    <section className="section h-100">
+      <div className="container h-100">
+        <div className="row align-items-center justify-content-center h-100">
+          <div
+            className="col-md-7 col-xl-5 m-auto p-3"
+            style={{ minHeight: "500px" }}
+          >
+            <SearchBar
+              setFetchWeatherQuery={setFetchWeatherQuery}
+              isLoading={FetchWeatherQuery.isLoading}
             />
-          )}
+            {FetchWeatherQuery.error && (
+              <div className="bg-white rounded p-3 mb-3">
+                <p className="fw-bold text-danger mb-0">
+                  {FetchWeatherQuery.error}
+                </p>
+              </div>
+            )}
+            {FetchWeatherQuery.isLoading && (
+              <div className="text-center text-light fs-2 fw-bold">
+                <p>Loading... </p>
+                <div className="spinner-border"></div>
+              </div>
+            )}
+            {FetchWeatherQuery.data && (
+              <WeatherCard
+                weatherData={FetchWeatherQuery.data}
+                timeOfDay={timeOfDay}
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
 
