@@ -4,7 +4,6 @@ import WeatherCard from "./components/WeatherCard";
 import useCurrentLocation from "./hooks/useCurrentLocation";
 import { useEffect, useState } from "react";
 import { WeatherData } from "./hooks/useWeather";
-import { LocationData } from "./hooks/useSearchLocation";
 
 export interface FetchDataQuery {
   error: string;
@@ -13,10 +12,6 @@ export interface FetchDataQuery {
 
 export interface FetchWeatherQuery extends FetchDataQuery {
   data: WeatherData | null;
-}
-
-export interface FetchLocationQuery extends FetchDataQuery {
-  data: LocationData | null;
 }
 
 function App() {
