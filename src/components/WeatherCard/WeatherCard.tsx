@@ -34,7 +34,7 @@ const TodayWeatherCard = ({ weatherData, timeOfDay }: Props) => {
 
   return (
     <div
-      className={`card text-center border border-3 border-white rounded  
+      className={`card text-center border border-3 border-white shadow rounded  
         ${styles["bg" + timeOfDay]} 
         ${timeOfDay === "Day" ? "" : "text-white"}`}
     >
