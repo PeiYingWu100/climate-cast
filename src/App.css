@@ -3,9 +3,8 @@ body{
     background-repeat: no-repeat;
     background-size:cover;
     background-position: center;
-    overflow:auto; 
 }
 
-.section{
+.section, .container, .container > .row{
     min-height: 100vh;
 }
