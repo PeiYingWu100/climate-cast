@@ -25,7 +25,7 @@ const SearchBar = ({
   const [city, setCity] = useState<string | null>(null);
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value.length < 3) return;
+    if (event.target.value.length < 3) return setCity(null);
     setCity(event.target.value);
   };
 
