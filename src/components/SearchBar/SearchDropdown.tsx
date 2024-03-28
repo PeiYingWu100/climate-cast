@@ -7,6 +7,7 @@ interface Props {
   inputRef: React.RefObject<HTMLInputElement>;
   setLocationQuery: (locationQuery: LocationQuery) => void;
   setCity: (city: string | null) => void;
+  setInputCity: (inputCity: string) => void;
 }
 
 const SearchDropdown = ({
@@ -14,6 +15,7 @@ const SearchDropdown = ({
   inputRef,
   setLocationQuery,
   setCity,
+  setInputCity,
 }: Props) => {
   const { data: cities } = useCity(city, [city]);
 
@@ -34,6 +36,7 @@ const SearchDropdown = ({
 
     // update the search input
     if (inputRef.current) inputRef.current.value = city + ", " + country;
+    setInputCity(city + ", " + country);
   };
 
   return (

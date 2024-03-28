@@ -20,6 +20,8 @@ function App() {
   );
   const [timeOfDay, setTimeOfDay] = useState<string | null>(null);
 
+  const [inputCity, setInputCity] = useState<string | null>(null);
+
   // Default location
   const { data, error, isLoading } = useCurrentLocation();
 
@@ -47,6 +49,7 @@ function App() {
             <SearchBar
               setFetchWeatherQuery={setFetchWeatherQuery}
               isLoading={FetchWeatherQuery.isLoading}
+              setInputCity={setInputCity}
             />
             {FetchWeatherQuery.error && (
               <div className="bg-white rounded p-3 mb-3">
@@ -65,6 +68,7 @@ function App() {
               <WeatherCard
                 weatherData={FetchWeatherQuery.data}
                 timeOfDay={timeOfDay}
+                inputCity={inputCity}
               />
             )}
           </div>

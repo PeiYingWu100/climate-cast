@@ -7,11 +7,12 @@ import styles from "./SearchBar.module.css";
 import SearchDropdown from "./SearchDropdown";
 
 interface Props {
-  setFetchWeatherQuery: (FetchWeatherQuery: FetchWeatherQuery) => void;
   isLoading: boolean;
+  setFetchWeatherQuery: (FetchWeatherQuery: FetchWeatherQuery) => void;
+  setInputCity: (inputCity: string) => void;
 }
 
-const SearchBar = ({ setFetchWeatherQuery, isLoading }: Props) => {
+const SearchBar = ({ isLoading, setFetchWeatherQuery, setInputCity }: Props) => {
   const [locationQuery, setLocationQuery] = useState<LocationQuery>(
     {} as LocationQuery
   );
@@ -62,6 +63,7 @@ const SearchBar = ({ setFetchWeatherQuery, isLoading }: Props) => {
               inputRef={ref}
               setLocationQuery={setLocationQuery}
               setCity={setCity}
+              setInputCity={setInputCity}
             />
           )}
         </div>
