@@ -4,7 +4,7 @@ import useWeather from "../../hooks/useWeather";
 import { FetchWeatherQuery } from "../../App";
 import { LocationQuery } from "../../hooks/useCurrentLocation";
 import styles from "./SearchBar.module.css";
-import useCity from "../../hooks/useCity";
+import SearchDropdown from "./SearchDropdown";
 
 interface Props {
   setFetchWeatherQuery: (FetchWeatherQuery: FetchWeatherQuery) => void;
@@ -24,33 +24,14 @@ const SearchBar = ({ setFetchWeatherQuery, isLoading }: Props) => {
     setCity(event.target.value);
   };
 
-  const handleSearchDropdownClick = (
-    city: string,
-    country: string,
-    lat: number,
-    lon: number
-  ) => {
-    setLocationQuery({
-      location: null,
-      lat: lat,
-      lon: lon,
-    });
-
-    // hide the dropdown
-    setCity(null);
-
-    // update the search input
-    if (ref.current) ref.current.value = city + ", " + country;
-  };
-
-  const { data } = useCity(city, [city]);
-
+  // get wather
   useWeather(locationQuery, setFetchWeatherQuery, "", [
     locationQuery.location,
     locationQuery.lat,
   ]);
 
   const ref = useRef<HTMLInputElement>(null);
+
   return (
     <form
       onSubmit={(event) => {
@@ -75,28 +56,14 @@ const SearchBar = ({ setFetchWeatherQuery, isLoading }: Props) => {
             required
             disabled={isLoading}
           />
-          <ul className="list-group position-absolute top-3 w-100 z-3">
-            {city &&
-              data?.map((city, ind) => (
-                <button
-                  key={ind}
-                  type="button"
-                  className={`list-group-item rounded-0 text-start ${styles.searchList}`}
-                  onClick={() =>
-                    handleSearchDropdownClick(
-                      city.name,
-                      city.country,
-                      city.lat,
-                      city.lon
-                    )
-                  }
-                >
-                  {`${city.name}${city.state ? ", " + city.state : ""}, ${
-                    city.country
-                  }`}
-                </button>
-              ))}
-          </ul>
+          {city && (
+            <SearchDropdown
+              city={city}
+              inputRef={ref}
+              setLocationQuery={setLocationQuery}
+              setCity={setCity}
+            />
+          )}
         </div>
         <button type="submit" className="btn btn-warning" disabled={isLoading}>
           <BsSearch />
