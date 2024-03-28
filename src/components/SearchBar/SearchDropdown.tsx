@@ -36,11 +36,9 @@ const SearchDropdown = ({
     setCity(null);
 
     // update the search input
-    if (inputRef.current)
-      inputRef.current.value = `${city}${
-        state ? ", " + state : ""
-      }, ${country}`;
-    setInputCity(city + ", " + country);
+    const cityText = `${city}${state ? ", " + state : ""}, ${country}`;
+    if (inputRef.current) inputRef.current.value = cityText;
+    setInputCity(cityText);
   };
 
   return (
