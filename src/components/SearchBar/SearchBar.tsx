@@ -12,7 +12,11 @@ interface Props {
   setInputCity: (inputCity: string) => void;
 }
 
-const SearchBar = ({ isLoading, setFetchWeatherQuery, setInputCity }: Props) => {
+const SearchBar = ({
+  isLoading,
+  setFetchWeatherQuery,
+  setInputCity,
+}: Props) => {
   const [locationQuery, setLocationQuery] = useState<LocationQuery>(
     {} as LocationQuery
   );
@@ -43,6 +47,7 @@ const SearchBar = ({ isLoading, setFetchWeatherQuery, setInputCity }: Props) => 
             lat: null,
             lon: null,
           });
+        setCity(null);
       }}
     >
       <div className="input-group mb-3">
