@@ -1,6 +1,6 @@
 #root{
     background-color: #4FAFBF;
-    background: url("/bg_sky.jpeg");
+    background-image: url("/bg_sky_crop.jpeg");
     background-repeat: no-repeat;
     background-size:cover;
     background-position: center;
