@@ -57,7 +57,7 @@ const SearchBar = ({
             ref={ref}
             type="text"
             id={styles.searchBar}
-            className={`form-control rounded-end-0 border-white ${
+            className={`form-control rounded-end-0 ${
               city ? "rounded-bottom-0" : ""
             }`}
             placeholder="Enter a Location"

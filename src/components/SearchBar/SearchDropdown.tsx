@@ -47,9 +47,11 @@ const SearchDropdown = ({
         <button
           key={ind}
           type="button"
-          className={`list-group-item rounded-0 border-0 text-start ${
+          className={`list-group-item rounded-0 text-start ${
             styles.searchList
-          } ${ind === cities.length - 1 ? "rounded-bottom" : ""}`}
+          } ${
+            ind === cities.length - 1 ? "rounded-bottom" : "border-bottom-0"
+          }`}
           onClick={() =>
             handleSearchDropdownClick(
               city.name,
