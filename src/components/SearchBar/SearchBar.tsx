@@ -9,7 +9,7 @@ import SearchDropdown from "./SearchDropdown";
 interface Props {
   isLoading: boolean;
   setFetchWeatherQuery: (FetchWeatherQuery: FetchWeatherQuery) => void;
-  setInputCity: (inputCity: string) => void;
+  setInputCity: (inputCity: string | null) => void;
 }
 
 const SearchBar = ({
@@ -48,6 +48,7 @@ const SearchBar = ({
             lon: null,
           });
         setCity(null);
+        setInputCity(null);
       }}
     >
       <div className="input-group mb-3">
