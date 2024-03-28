@@ -1,3 +1,8 @@
 #searchBar:focus {
     box-shadow: none;
 }
+
+.searchList:hover{
+    background-color: #4FAFBF;
+    color:#fff;
+}

@@ -5,7 +5,7 @@ import useCurrentLocation from "./hooks/useCurrentLocation";
 import { useEffect, useState } from "react";
 import { WeatherData } from "./hooks/useWeather";
 
-interface FetchDataQuery {
+export interface FetchDataQuery {
   error: string;
   isLoading: boolean;
 }
