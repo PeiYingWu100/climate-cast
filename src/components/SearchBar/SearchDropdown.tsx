@@ -21,6 +21,7 @@ const SearchDropdown = ({
 
   const handleSearchDropdownClick = (
     city: string,
+    state: string | null,
     country: string,
     lat: number,
     lon: number
@@ -35,7 +36,10 @@ const SearchDropdown = ({
     setCity(null);
 
     // update the search input
-    if (inputRef.current) inputRef.current.value = city + ", " + country;
+    if (inputRef.current)
+      inputRef.current.value = `${city}${
+        state ? ", " + state : ""
+      }, ${country}`;
     setInputCity(city + ", " + country);
   };
 
@@ -49,6 +53,7 @@ const SearchDropdown = ({
           onClick={() =>
             handleSearchDropdownClick(
               city.name,
+              city.state,
               city.country,
               city.lat,
               city.lon
