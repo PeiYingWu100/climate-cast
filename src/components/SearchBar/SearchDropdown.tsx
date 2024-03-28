@@ -44,12 +44,14 @@ const SearchDropdown = ({
   };
 
   return (
-    <ul className="list-group position-absolute top-3 w-100 z-3">
+    <ul className="list-group position-absolute w-100 z-2">
       {cities?.map((city, ind) => (
         <button
           key={ind}
           type="button"
-          className={`list-group-item rounded-0 text-start ${styles.searchList}`}
+          className={`list-group-item rounded-0 border-0 text-start ${
+            styles.searchList
+          } ${ind === cities.length - 1 ? "rounded-bottom" : ""}`}
           onClick={() =>
             handleSearchDropdownClick(
               city.name,

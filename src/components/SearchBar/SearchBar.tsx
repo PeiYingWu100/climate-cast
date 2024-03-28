@@ -56,7 +56,9 @@ const SearchBar = ({
             ref={ref}
             type="text"
             id={styles.searchBar}
-            className="form-control rounded-0"
+            className={`form-control rounded-end-0 border-white ${
+              city ? "rounded-bottom-0" : ""
+            }`}
             placeholder="Enter a Location"
             onChange={handleCityChange}
             required
@@ -72,7 +74,12 @@ const SearchBar = ({
             />
           )}
         </div>
-        <button type="submit" className="btn btn-warning" disabled={isLoading}>
+        <button
+          type="submit"
+          className="btn btn-warning"
+          disabled={isLoading}
+          style={{ marginLeft: "0.1px" }}
+        >
           <BsSearch />
         </button>
       </div>
